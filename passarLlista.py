@@ -24,7 +24,7 @@ while (opcioMenu !=5):
   if(opcioMenu == 2):
     fitxer = open(directoriMatricula+"/alumnat.csv","r")
     #Obres arxius
-    E1= open(directoriGrups+"/ESO1.csv","w")
+    E1= open(directoriGrups+"/ESO1.csv","w",newline="")
     E2= open(directoriGrups+"/ESO2.csv","w")
     E3= open(directoriGrups+"/ESO3.csv","w")
     E4= open(directoriGrups+"/ESO4.csv","w")
@@ -35,23 +35,47 @@ while (opcioMenu !=5):
     for i in fitxer:
       linia=i.split(",")
       if(linia[1]=="11" or linia[1] == "12"):
-        E1.write(linia[0] +","+linia[2]+","+linia[5]+"\n")
+        E1.write(linia[0] +","+linia[2]+","+linia[5])
       elif(linia[1]=="13"):
-        E2.write(linia[0] +","+linia[2]+","+linia[5]+"\n")
+        E2.write(linia[0] +","+linia[2]+","+linia[5])
       elif(linia[1]=="14"):
-        E3.write(linia[0] +","+linia[2]+","+linia[5]+"\n")
+        E3.write(linia[0] +","+linia[2]+","+linia[5])
       elif(linia[1]=="15"):
-        E4.write(linia[0] +","+linia[2]+","+linia[5]+"\n")
+        E4.write(linia[0] +","+linia[2]+","+linia[5])
       elif(linia[1]=="16" ):
-        B1.write(linia[0] +","+linia[2]+","+linia[5]+"\n")
+        B1.write(linia[0] +","+linia[2]+","+linia[5])
       elif(linia[1]=="18"or linia[1]=="17"):
-        B2.write(linia[0] +","+linia[2]+","+linia[5]+"\n")
+        B2.write(linia[0] +","+linia[2]+","+linia[5])
     E1.close()
     E2.close()
     E3.close()
     E4.close()
     B1.close()
     B2.close()
+  elif(opcioMenu == 3):
+    curs = input("Quin curs vols passar llista")
+    today = date.today()
+    cursFitxer = open(directoriGrups+"/"+curs+".csv","r")
+    llistacurs = open(directoriAssistencia+"/"+curs+str(today)+".csv","w")
+    for f in cursFitxer:
+      #trasnformar la f a llista
+      linia2=f.split(",")
+      print(linia2[0])
+      assis=(input("Si l'alumne està posa un 1 i si no està posa un 0"))
+      llistacurs.write(linia2[0]+assis+"\n")
+    cursFitxer.close()
+    llistacurs.close()
+  elif(opcioMenu == 4):
+    fitxer = os.listdir(directoriAssistencia)
+    for nomFitxer in fitxer:
+      print(nomFitxer)
+    obrir= input("Quin directori vols obrir")
+    consultar=open(directoriAssistencia+"/"+obrir ,"r")
+    for e in consultar:
+      z=e.replace("0"," Falta!").replace("1"," ")
+      print(z)
+      
+
 
       
 
